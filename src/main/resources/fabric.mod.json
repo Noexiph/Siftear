@@ -8,8 +8,8 @@
 		"Drakhis"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/Noexiph/Siftear",
+		"issues": "https://github.com/Noexiph/Siftear/issues"
 	},
 	"license": ["LGPL-3.0-only", "All-Rights-Reserved"],
 	"icon": "assets/siftear/icon.png",

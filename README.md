@@ -5,6 +5,5 @@
 For setup instructions, please see the [Fabric Documentation page](https://docs.fabricmc.net/develop/getting-started/creating-a-project#setting-up) related to the IDE that you are using.
 
 ## License
-
-- **Code:** Licensed under the [GNU Lesser General Public License v3.0](LICENSE) (LGPL-3.0).
-- **Assets:** Textures, models, sounds, and brand assets are **All Rights Reserved**. You may not reuse or re-distribute them without permission.
+[![Asset license](https://img.shields.io/badge/assets%20license-All%20Rights%20Reserved-red.svg?style=flat-square)](https://en.wikipedia.org/wiki/All_rights_reserved)
+[![Code license](https://img.shields.io/badge/code%20license-LGPL%20v3.0-green.svg?style=flat-square)](https://github.com/Noexiph/Siftear/blob/main/LICENSE)
