@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "siftear",
+	"version": "${version}",
+	"name": "Siftear",
+	"description": "Rifts are starting to appear everywhere, and they're linked to the Sift!",
+	"authors": [
+		"Drakhis"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": ["LGPL-3.0-only", "All-Rights-Reserved"],
+	"icon": "assets/siftear/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"noexiph.siftear.Siftear"
+		],
+		"client": [
+			"noexiph.siftear.client.SiftearClient"
+		],
+		"fabric-datagen": [
+			"noexiph.siftear.client.SiftearDataGenerator"
+		]
+	},
+	"mixins": [
+		"siftear.mixins.json",
+		{
+			"config": "siftear.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
