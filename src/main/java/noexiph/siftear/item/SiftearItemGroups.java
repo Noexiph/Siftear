@@ -25,9 +25,9 @@ public class SiftearItemGroups {
             .icon(() -> new ItemStack(SiftearItems.JELLY_BALL))
             .title(Component.translatable("itemGroup.siftear.siftear_group"))
             .displayItems((context, entries) -> {
-                // Materials
                 entries.accept(SiftearItems.JELLY_BALL);
                 entries.accept(SiftearBlocks.JELLY_BLOCK);
+                entries.accept(SiftearItems.BLUB_SPAWN_EGG);
             })
             .build();
 
