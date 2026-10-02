@@ -1,7 +1,7 @@
 package noexiph.siftear.entity.rift;
 
+import net.minecraft.util.RandomSource;
 import noexiph.siftear.entity.SiftearEntities;
-import noexiph.siftear.entity.blub.BlubEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -73,7 +73,7 @@ public class RiftEntity extends Entity {
         }
 
         if (!this.mobSpawned && this.ageTicks >= SPAWN_MOB_TICK) {
-            this.ejectBlub();
+            this.ejectMob();
             this.mobSpawned = true;
         }
 
@@ -87,19 +87,25 @@ public class RiftEntity extends Entity {
         }
     }
 
-    private void ejectBlub() {
+    public static Entity getRandomMob(ServerLevel serverLevel) {
+        int weight = serverLevel.getRandom().nextInt(100);
+        if (weight < 50) return SiftearEntities.NUZZLE.create(serverLevel);
+        return SiftearEntities.BLUB.create(serverLevel);
+    }
+
+    private void ejectMob() {
         ServerLevel serverLevel = (ServerLevel) this.level();
-        BlubEntity blub = SiftearEntities.BLUB.create(serverLevel);
-        if (blub == null) {
+        Entity mob = getRandomMob(serverLevel);
+        if (mob == null) {
             return;
         }
 
         Vec3 ejectDirection = this.getLookAngle();
         Vec3 spawnOrigin = this.position().add(0.0, 2.0, 0.0).add(ejectDirection.scale(0.6));
 
-        blub.moveTo(spawnOrigin.x(), spawnOrigin.y(), spawnOrigin.z(), this.getYRot(), 0.0F);
-        blub.setDeltaMovement(ejectDirection.x() * 0.45, 0.25, ejectDirection.z() * 0.45);
-        serverLevel.addFreshEntity(blub);
+        mob.moveTo(spawnOrigin.x(), spawnOrigin.y(), spawnOrigin.z(), this.getYRot(), 0.0F);
+        mob.setDeltaMovement(ejectDirection.x() * 0.45, 0.25, ejectDirection.z() * 0.45);
+        serverLevel.addFreshEntity(mob);
 
         serverLevel.playSound(null, this.blockPosition(), SoundEvents.ILLUSIONER_MIRROR_MOVE, SoundSource.NEUTRAL, 1.0F, 1.2F);
     }
