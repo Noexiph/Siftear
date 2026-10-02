@@ -3,7 +3,6 @@ package noexiph.siftear.client.renderer.entity.animation;
 import net.minecraft.client.animation.AnimationDefinition;
 
 import net.minecraft.client.animation.AnimationChannel;
-import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
 

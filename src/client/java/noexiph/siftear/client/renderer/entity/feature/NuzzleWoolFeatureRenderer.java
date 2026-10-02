@@ -23,7 +23,7 @@ import java.util.Map;
 public class NuzzleWoolFeatureRenderer extends RenderLayer<NuzzleEntity, NuzzleModel<NuzzleEntity>> {
     private static final Map<DyeColor, ResourceLocation> WOOL_TEXTURES = Util.make(Maps.newEnumMap(DyeColor.class), map -> {
         for (DyeColor color : DyeColor.values()) {
-            map.put(color, Siftear.id("textures/entity/nuzzle/nuzzle_wool_" + color.getName() + ".png"));
+            map.put(color, Siftear.id("textures/entity/nuzzle/wool/nuzzle_wool_" + color.getName() + ".png"));
         }
     });
 

@@ -61,6 +61,7 @@ import java.util.Map;
 public class NuzzleEntity extends Animal implements Shearable {
     private static final EntityDataAccessor<Byte> DATA_COLOR_ID = SynchedEntityData.defineId(NuzzleEntity.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Boolean> DATA_SHEARED = SynchedEntityData.defineId(NuzzleEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> DATA_PANICKING = SynchedEntityData.defineId(NuzzleEntity.class, EntityDataSerializers.BOOLEAN);
 
     private static final Map<DyeColor, ItemLike> ITEM_BY_DYE = Map.ofEntries(
             Map.entry(DyeColor.WHITE, Blocks.WHITE_WOOL),
@@ -86,12 +87,13 @@ public class NuzzleEntity extends Animal implements Shearable {
 
     private int eatAnimationTick;
     private EatBlockGoal eatBlockGoal;
+    private PanicGoal panicGoal;
 
     public NuzzleEntity(EntityType<? extends NuzzleEntity> entityType, Level level) {
         super(entityType, level);
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
+    public static AttributeSupplier.@NotNull Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 8.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.23D);
@@ -100,8 +102,9 @@ public class NuzzleEntity extends Animal implements Shearable {
     @Override
     protected void registerGoals() {
         this.eatBlockGoal = new EatBlockGoal(this);
+        this.panicGoal = new PanicGoal(this, 1.25D);
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
+        this.goalSelector.addGoal(1, this.panicGoal);
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D, stack -> stack.is(ItemTags.SHEEP_FOOD), false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1D));
@@ -114,8 +117,9 @@ public class NuzzleEntity extends Animal implements Shearable {
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        builder.define(DATA_COLOR_ID, (byte) DyeColor.WHITE.getId());
+        builder.define(DATA_COLOR_ID, (byte) DyeColor.RED.getId());
         builder.define(DATA_SHEARED, false);
+        builder.define(DATA_PANICKING, false);
     }
 
     @Override
@@ -123,7 +127,7 @@ public class NuzzleEntity extends Animal implements Shearable {
         if (this.isSheared()) {
             return this.getType().getDefaultLootTable();
         }
-        return SiftearBuiltInLootTables.NUZZLE_BY_DYE.getOrDefault(this.getColor(), SiftearBuiltInLootTables.NUZZLE_WHITE);
+        return SiftearBuiltInLootTables.NUZZLE_BY_DYE.getOrDefault(this.getColor(), SiftearBuiltInLootTables.NUZZLE_RED);
     }
 
     @Override
@@ -145,6 +149,7 @@ public class NuzzleEntity extends Animal implements Shearable {
     protected void customServerAiStep() {
         this.eatAnimationTick = this.eatBlockGoal.getEatAnimationTick();
         super.customServerAiStep();
+        this.entityData.set(DATA_PANICKING, this.panicGoal.isRunning());
     }
 
     @Override
@@ -170,6 +175,19 @@ public class NuzzleEntity extends Animal implements Shearable {
             }
             return InteractionResult.CONSUME;
         }
+
+        if (itemStack.getItem() instanceof DyeItem dyeItem) {
+            if (this.isAlive() && !this.isSheared() && this.getColor() != dyeItem.getDyeColor()) {
+                this.level().playSound(player, this, SoundEvents.DYE_USE, SoundSource.PLAYERS, 1.0F, 1.0F);
+                if (!this.level().isClientSide()) {
+                    this.setColor(dyeItem.getDyeColor());
+                    itemStack.consume(1, player);
+                }
+                return InteractionResult.sidedSuccess(this.level().isClientSide());
+            }
+            return InteractionResult.PASS;
+        }
+
         return super.mobInteract(player, hand);
     }
 
@@ -204,6 +222,10 @@ public class NuzzleEntity extends Animal implements Shearable {
 
     public void setSheared(boolean sheared) {
         this.entityData.set(DATA_SHEARED, sheared);
+    }
+
+    public boolean isPanicking() {
+        return this.entityData.get(DATA_PANICKING);
     }
 
     public DyeColor getColor() {
@@ -245,11 +267,11 @@ public class NuzzleEntity extends Animal implements Shearable {
 
     public static DyeColor getRandomNuzzleColor(RandomSource randomSource) {
         int weight = randomSource.nextInt(100);
-        if (weight < 5) return DyeColor.BLACK;
-        if (weight < 10) return DyeColor.GRAY;
-        if (weight < 15) return DyeColor.LIGHT_GRAY;
-        if (weight < 18) return DyeColor.BROWN;
-        return randomSource.nextInt(500) == 0 ? DyeColor.PINK : DyeColor.WHITE;
+        if (weight < 5) return DyeColor.PINK;
+        if (weight < 10) return DyeColor.YELLOW;
+        if (weight < 15) return DyeColor.CYAN;
+        if (weight < 18) return DyeColor.BLACK;
+        return randomSource.nextInt(500) == 0 ? DyeColor.WHITE : DyeColor.RED;
     }
 
     @Nullable

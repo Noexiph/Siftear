@@ -10,8 +10,10 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.util.Mth;
 import noexiph.siftear.client.renderer.entity.animation.NuzzleModelAnimation;
 import noexiph.siftear.entity.nuzzle.NuzzleEntity;
+import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class NuzzleModel<T extends NuzzleEntity> extends HierarchicalModel<T> {
@@ -79,15 +81,18 @@ public class NuzzleModel<T extends NuzzleEntity> extends HierarchicalModel<T> {
     }
 
     @Override
-    public ModelPart root() {
+    public @NotNull ModelPart root() {
         return this.root;
     }
 
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.head.yRot = netHeadYaw * ((float) Math.PI / 180F);
-        this.head.xRot = headPitch * ((float) Math.PI / 180F);
+
+        float clampedYaw = Mth.clamp(netHeadYaw, -7.5F, 7.5F);
+        float clampedPitch = Mth.clamp(headPitch, -7.5F, 7.5F);
+        this.head.yRot = clampedYaw * ((float) Math.PI / 180F);
+        this.head.xRot = clampedPitch * ((float) Math.PI / 180F);
 
         if (entity.isPanicking()) {
             this.animateWalk(NuzzleModelAnimation.run, limbSwing, limbSwingAmount, 2.0F, 2.5F);

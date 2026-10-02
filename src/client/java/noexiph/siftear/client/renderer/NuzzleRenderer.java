@@ -8,8 +8,10 @@ import net.minecraft.resources.ResourceLocation;
 import noexiph.siftear.Siftear;
 import noexiph.siftear.client.model.NuzzleModel;
 import noexiph.siftear.client.model.SiftearModelLayers;
+import noexiph.siftear.client.renderer.entity.feature.NuzzleUndercoatFeatureRenderer;
 import noexiph.siftear.client.renderer.entity.feature.NuzzleWoolFeatureRenderer;
 import noexiph.siftear.entity.nuzzle.NuzzleEntity;
+import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class NuzzleRenderer extends MobRenderer<NuzzleEntity, NuzzleModel<NuzzleEntity>> {
@@ -17,11 +19,12 @@ public class NuzzleRenderer extends MobRenderer<NuzzleEntity, NuzzleModel<Nuzzle
 
     public NuzzleRenderer(EntityRendererProvider.Context context) {
         super(context, new NuzzleModel<>(context.bakeLayer(SiftearModelLayers.NUZZLE)), 0.7F);
+        this.addLayer(new NuzzleUndercoatFeatureRenderer(this));
         this.addLayer(new NuzzleWoolFeatureRenderer(this, context.getModelSet()));
     }
 
     @Override
-    public ResourceLocation getTextureLocation(NuzzleEntity entity) {
+    public @NotNull ResourceLocation getTextureLocation(@NotNull NuzzleEntity entity) {
         return BASE_TEXTURE;
     }
 }
