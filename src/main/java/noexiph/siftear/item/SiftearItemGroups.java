@@ -28,6 +28,7 @@ public class SiftearItemGroups {
                 entries.accept(SiftearItems.JELLY_BALL);
                 entries.accept(SiftearBlocks.JELLY_BLOCK);
                 entries.accept(SiftearItems.BLUB_SPAWN_EGG);
+                entries.accept(SiftearItems.NUZZLE_SPAWN_EGG);
             })
             .build();
 
@@ -57,6 +58,7 @@ public class SiftearItemGroups {
 
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.SPAWN_EGGS).register(content -> {
             content.addAfter(Items.BLAZE_SPAWN_EGG, SiftearItems.BLUB_SPAWN_EGG);
+            content.addAfter(Items.MULE_SPAWN_EGG, SiftearItems.NUZZLE_SPAWN_EGG);
         });
     }
 

@@ -1,4 +1,4 @@
-package noexiph.siftear.client.renderer.entity.layer;
+package noexiph.siftear.client.renderer.entity.feature;
 
 import noexiph.siftear.Siftear;
 import noexiph.siftear.entity.blub.BlubEntity;
@@ -15,11 +15,11 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 
 @Environment(EnvType.CLIENT)
-public class BlubCollarLayer extends RenderLayer<BlubEntity, BlubModel<BlubEntity>> {
+public class BlubCollarFeatureRenderer extends RenderLayer<BlubEntity, BlubModel<BlubEntity>> {
     private static final ResourceLocation COLLAR_LOCATION =
             ResourceLocation.fromNamespaceAndPath(Siftear.MOD_ID, "textures/entity/blub/blub_collar.png");
 
-    public BlubCollarLayer(RenderLayerParent<BlubEntity, BlubModel<BlubEntity>> renderer) {
+    public BlubCollarFeatureRenderer(RenderLayerParent<BlubEntity, BlubModel<BlubEntity>> renderer) {
         super(renderer);
     }
 

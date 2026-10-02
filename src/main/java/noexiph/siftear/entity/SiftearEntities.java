@@ -9,6 +9,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import noexiph.siftear.Siftear;
 import noexiph.siftear.entity.blub.BlubEntity;
+import noexiph.siftear.entity.nuzzle.NuzzleEntity;
 import noexiph.siftear.entity.rift.RiftEntity;
 
 public class SiftearEntities {
@@ -16,6 +17,13 @@ public class SiftearEntities {
             "blub",
             EntityType.Builder.of(BlubEntity::new, MobCategory.CREATURE)
                     .sized(0.7F, 0.55F)
+                    .clientTrackingRange(10)
+    );
+
+    public static final EntityType<NuzzleEntity> NUZZLE = register(
+            "nuzzle",
+            EntityType.Builder.of(NuzzleEntity::new, MobCategory.CREATURE)
+                    .sized(0.9F, 1.1F)
                     .clientTrackingRange(10)
     );
 
@@ -41,5 +49,6 @@ public class SiftearEntities {
 
     private static void registerAttributes() {
         FabricDefaultAttributeRegistry.register(BLUB, BlubEntity.createBlubAttributes());
+        FabricDefaultAttributeRegistry.register(NUZZLE, NuzzleEntity.createAttributes());
     }
 }

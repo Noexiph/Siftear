@@ -4,7 +4,7 @@ import noexiph.siftear.Siftear;
 import noexiph.siftear.entity.blub.BlubEntity;
 import noexiph.siftear.client.model.SiftearModelLayers;
 import noexiph.siftear.client.model.BlubModel;
-import noexiph.siftear.client.renderer.entity.layer.BlubCollarLayer;
+import noexiph.siftear.client.renderer.entity.feature.BlubCollarFeatureRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -21,7 +21,7 @@ public class BlubRenderer extends MobRenderer<BlubEntity, BlubModel<BlubEntity>>
 
     public BlubRenderer(EntityRendererProvider.Context context) {
         super(context, new BlubModel<>(context.bakeLayer(SiftearModelLayers.BLUB)), 0.35F);
-        this.addLayer(new BlubCollarLayer(this));
+        this.addLayer(new BlubCollarFeatureRenderer(this));
     }
 
     @Override

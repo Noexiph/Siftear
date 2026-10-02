@@ -15,6 +15,9 @@ public class SiftearItems {
     public static final Item BLUB_SPAWN_EGG = registerItem("blub_spawn_egg",
             new SpawnEggItem(SiftearEntities.BLUB, 0xFFFFFF, 0xFFFFFF, new Item.Properties()));
 
+    public static final Item NUZZLE_SPAWN_EGG = registerItem("nuzzle_spawn_egg",
+            new SpawnEggItem(SiftearEntities.NUZZLE, 0xFFFFFF, 0xFFFFFF, new Item.Properties()));
+
     public static Item registerItem(String id, Item item) {
         ResourceLocation itemID = ResourceLocation.fromNamespaceAndPath(Siftear.MOD_ID, id);
         return Registry.register(BuiltInRegistries.ITEM, itemID, item);

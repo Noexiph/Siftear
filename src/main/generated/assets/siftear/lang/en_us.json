@@ -1,9 +1,11 @@
 {
   "block.siftear.jelly_block": "Jelly Block",
   "entity.siftear.blub": "Blub",
+  "entity.siftear.nuzzle": "Nuzzle",
   "entity.siftear.rift": "Rift",
   "item.siftear.blub_spawn_egg": "Blub Spawn Egg",
   "item.siftear.jelly_ball": "Jelly Ball",
+  "item.siftear.nuzzle_spawn_egg": "Nuzzle Spawn Egg",
   "itemGroup.siftear.siftear_group": "Siftear group",
   "tag.item.siftear.blub_food": "Blub Food"
 }

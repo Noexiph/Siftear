@@ -33,5 +33,6 @@ public class SiftearModelProvider extends FabricModelProvider {
 
     private static void generateSpawnEggTranslations(ItemModelGenerators itemModelGenerator) {
         itemModelGenerator.generateFlatItem(SiftearItems.BLUB_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(SiftearItems.NUZZLE_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
     }
 }

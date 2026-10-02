@@ -26,6 +26,7 @@ public class SiftearEnglishLanguageProvider extends FabricLanguageProvider {
 
         builder.add(SiftearItems.JELLY_BALL, "Jelly Ball");
         builder.add(SiftearItems.BLUB_SPAWN_EGG, "Blub Spawn Egg");
+        builder.add(SiftearItems.NUZZLE_SPAWN_EGG, "Nuzzle Spawn Egg");
 
         generateBlockTranslations(builder);
         generateEntityTranslations(builder);
@@ -34,6 +35,7 @@ public class SiftearEnglishLanguageProvider extends FabricLanguageProvider {
 
     private static void generateEntityTranslations(TranslationBuilder builder) {
         builder.add(SiftearEntities.BLUB, "Blub");
+        builder.add(SiftearEntities.NUZZLE, "Nuzzle");
         builder.add(SiftearEntities.RIFT, "Rift");
     }
 

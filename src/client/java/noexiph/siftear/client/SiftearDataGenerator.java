@@ -16,6 +16,7 @@ public class SiftearDataGenerator implements DataGeneratorEntrypoint {
 		//pack.addProvider(SiftearEnchantmentTagProvider::new);
 		pack.addProvider(SiftearModelProvider::new);
 		pack.addProvider(SiftearLootTableProvider::new);
+		pack.addProvider(SiftearEntityLootTableProvider::new);
 		//pack.addProvider(SiftearEntityTypeTagProvider::new);
 		pack.addProvider(SiftearEnglishLanguageProvider::new);
 		//pack.addProvider(SiftearRegistryDataGenerator::new);

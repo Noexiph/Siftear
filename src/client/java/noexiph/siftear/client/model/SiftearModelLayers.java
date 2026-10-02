@@ -9,6 +9,14 @@ public class SiftearModelLayers {
             ResourceLocation.fromNamespaceAndPath(Siftear.MOD_ID, "blub"), "main"
     );
 
+    public static final ModelLayerLocation NUZZLE = new ModelLayerLocation(
+            ResourceLocation.fromNamespaceAndPath(Siftear.MOD_ID, "nuzzle"), "main"
+    );
+
+    public static final ModelLayerLocation NUZZLE_WOOL = new ModelLayerLocation(
+            ResourceLocation.fromNamespaceAndPath(Siftear.MOD_ID, "nuzzle_wool"), "main"
+    );
+
     public static final ModelLayerLocation RIFT = new ModelLayerLocation(
             ResourceLocation.fromNamespaceAndPath(Siftear.MOD_ID, "rift"), "main"
     );
