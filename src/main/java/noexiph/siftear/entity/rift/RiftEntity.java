@@ -1,6 +1,6 @@
 package noexiph.siftear.entity.rift;
 
-import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.*;
 import noexiph.siftear.entity.SiftearEntities;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -9,9 +9,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -105,8 +102,17 @@ public class RiftEntity extends Entity {
 
         mob.moveTo(spawnOrigin.x(), spawnOrigin.y(), spawnOrigin.z(), this.getYRot(), 0.0F);
         mob.setDeltaMovement(ejectDirection.x() * 0.45, 0.25, ejectDirection.z() * 0.45);
-        serverLevel.addFreshEntity(mob);
 
+        if (mob instanceof Mob mobEntity) {
+            mobEntity.finalizeSpawn(
+                serverLevel,
+                serverLevel.getCurrentDifficultyAt(mob.blockPosition()),
+                MobSpawnType.EVENT,
+                null
+            );
+        }
+
+        serverLevel.addFreshEntity(mob);
         serverLevel.playSound(null, this.blockPosition(), SoundEvents.ILLUSIONER_MIRROR_MOVE, SoundSource.NEUTRAL, 1.0F, 1.2F);
     }
 

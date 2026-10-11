@@ -47,6 +47,7 @@ public class SiftearEntities {
         registerAttributes();
     }
 
+    @SuppressWarnings("DataFlowIssue")
     private static void registerAttributes() {
         FabricDefaultAttributeRegistry.register(BLUB, BlubEntity.createBlubAttributes());
         FabricDefaultAttributeRegistry.register(NUZZLE, NuzzleEntity.createAttributes());
